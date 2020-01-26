@@ -30,11 +30,6 @@ const rows = [
 
 export default function DenseTable() {
   const classes = useStyles();
-  constructor(props) {
-    super(props);
-
-    this.state ={ data: {}, isFetching: true, error: null };
-}
 
 
   return (
