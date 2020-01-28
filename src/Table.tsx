@@ -27,14 +27,18 @@ function Table() {
             return (
               <div>
                 <div>
-                  <h2>React Async - Random Users</h2>
+                  <h2>React Asyncs</h2>
                 </div>
                 {console.log(data)}
-                {console.log('data iterator = '+(typeof Object.keys(data)[Symbol.iterator]))}
+                {console.log('data keys = '+ Object.keys(data))}
                   {Object.keys(data).map((level: any) => (
-                    Object.keys(level).map((level2: any) =>(
-                    <p>{level2}</p>
+                    data[level].map((level2: any) =>(
 
+                      level2.map((key3: any) =>(
+                        
+                        <p>{key3['_source']['document_name']}</p>
+
+                      ))
                     ))
                   ))}
                 <p>signal</p>
