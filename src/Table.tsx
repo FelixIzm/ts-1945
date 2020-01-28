@@ -29,14 +29,14 @@ function Table() {
                 <div>
                   <h2>React Async - Random Users</h2>
                 </div>
-                {console.log(Object.entries(data))}
-                {data.map((level1: any) => (
-                  level1.map(() => (
-                  <div>level2</div>
-                  ))   
+                {console.log(data)}
+                {console.log('data iterator = '+(typeof Object.keys(data)[Symbol.iterator]))}
+                  {Object.keys(data).map((level: any) => (
+                    Object.keys(level).map((level2: any) =>(
+                    <p>{level2}</p>
 
-                ))}
-
+                    ))
+                  ))}
                 <p>signal</p>
               </div>
             )
