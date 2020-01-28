@@ -29,10 +29,15 @@ function Table() {
                 <div>
                   <h2>React Async - Random Users</h2>
                 </div>
-                {data.map((user: any) => (
-                    <div>
-                    <p>{user.name}</p>
-                    </div>
+                {data.map((level1: any) => (
+                  /*
+                    level1.map((level2: any) => (
+                      <div>
+                      <p>{level2['_source']['document_name']}</p>
+                      </div>
+                    ))
+                    */
+                    <div>length = {level1.length}</div>
                 ))};
 
               </div>
