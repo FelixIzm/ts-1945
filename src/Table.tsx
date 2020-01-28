@@ -5,7 +5,12 @@ import Async from 'react-async';
 
 // We'll request user data from this API
 const loadUsers = () =>
-  fetch("https://jsonplaceholder.typicode.com/users")
+/*
+   fetch("https://jsonplaceholder.typicode.com/users")
+    .then(res => (res.ok ? res : Promise.reject(res)))
+    .then(res => res.json())
+*/
+    fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
     .then(res => (res.ok ? res : Promise.reject(res)))
     .then(res => res.json())
 
