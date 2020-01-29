@@ -32,7 +32,7 @@ function Table() {
                       </div>
                     ))
                     */
-                    <div>length = {level1.length}</div>
+                    <div>length = {JSON.stringify(level1)}</div>
                 ))};
 
               </div>
