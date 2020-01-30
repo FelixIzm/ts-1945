@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Table from './Table';
-import CountListMaterialExperiment from './tableThing';
+//import Table from './Table';
+import FxTable from './fxTable_1';
+//import CountListMaterialExperiment from './tableThing';
 
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<CountListMaterialExperiment hi='Felix' />, document.getElementById('root'));
+ReactDOM.render(<FxTable hi='Felix' />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

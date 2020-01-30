@@ -67,7 +67,8 @@ const CountListMaterialExperiment: React.SFC<Props> = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => {
+          {
+          rows.map(row => {
             return (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
@@ -79,7 +80,8 @@ const CountListMaterialExperiment: React.SFC<Props> = props => {
                 <TableCell>{row.protein}</TableCell>
               </TableRow>
             );
-          })}
+          })
+          }
         </TableBody>
       </Table>
     </Paper>
