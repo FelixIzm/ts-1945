@@ -2,10 +2,15 @@
 import React from 'react';
 //import './App.css';
 import Async from 'react-async';
-
+//<script src="https://gist.github.com/johnsogg/dde852d76aa7af92c1cedd0e594557db.js"></script>
 // We'll request user data from this API
 const loadUsers = () =>
-  fetch("https://jsonplaceholder.typicode.com/users")
+/*
+   fetch("https://jsonplaceholder.typicode.com/users")
+    .then(res => (res.ok ? res : Promise.reject(res)))
+    .then(res => res.json())
+*/
+    fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
     .then(res => (res.ok ? res : Promise.reject(res)))
     .then(res => res.json())
 
@@ -22,19 +27,20 @@ function Table() {
             return (
               <div>
                 <div>
-                  <h2>React Async - Random Users</h2>
+                  <h2>React Asyncs</h2>
                 </div>
-                {data.map((level1: any) => (
-                  /*
-                    level1.map((level2: any) => (
-                      <div>
-                      <p>{level2['_source']['document_name']}</p>
-                      </div>
-                    ))
-                    */
-                    <div>length = {JSON.stringify(level1)}</div>
-                ))};
+                {console.log(data)}
+                {console.log('data keys = '+ Object.keys(data))}
+                  {Object.keys(data).map((level: any) => (
+                    data[level].map((level2: any) =>(
+                      level2.map((key3: any) =>(
 
+                        <p>{key3['_source']['document_name']}</p>
+
+                      ))
+                    ))
+                  ))}
+                <p>signal</p>
               </div>
             )
         }}
