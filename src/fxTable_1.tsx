@@ -82,13 +82,13 @@ interface ILevel1{
   _source: ISource;
 }
 interface ILevel2{
-  [index: number]: ILevel1;
+  level2: Array<ILevel1>;
 }
 interface ILevel3{
-  [index: number]: ILevel2;
+ level3: Array<ILevel2>;
 }
 interface IDataType{
-  query: ILevel3;
+  query: Array<ILevel3>;
 }
 const getJson = async (): Promise<IDataType> =>  {
     const response = await fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
@@ -118,9 +118,16 @@ const FxTable: React.SFC<Props> = props => {
   const { classes } = props;
 
   getJson()
-  .then((rows: IDataType) =>{
-      console.log(rows);
-  })
+    .then((data: IDataType) =>{
+      (data.query).map(level3 => {
+          Object.keys(data.query[level3]).map( =>{
+
+          })
+          console.log(level3);
+          return 0;
+      })
+    }
+    )
 
   return (
         <Paper className={classes.root}>
