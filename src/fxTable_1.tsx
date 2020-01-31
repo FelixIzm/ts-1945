@@ -52,9 +52,49 @@ const styles = (theme: Theme) =>
 interface Props extends WithStyles<typeof styles> {
   hi: string;
 }
-const getJson = async () =>{
+interface ISource{
+    document_number: number;
+    deal_type: any;
+    archive: string;
+    delo: string;
+    date_to: string;
+    fond: number;
+    operation_name: any;
+    document_name: string;
+    geo_names: string;
+    document_date_b: string;
+    secr: string;
+    image_path: string;
+    delo_id: number;
+    id: number;
+    document_date_f: string;
+    document_type: string;
+    opis: string;
+    date_from: string;
+    authors: string;
+
+}
+interface ILevel1{
+  _index: string;
+  _type: string;
+  _id: number;
+  _score: number;
+  _source: ISource;
+}
+interface ILevel2{
+  [index: number]: ILevel1;
+}
+interface ILevel3{
+  [index: number]: ILevel2;
+}
+interface IDataType{
+  query: ILevel3;
+}
+const getJson = async (): Promise<IDataType> =>  {
     const response = await fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
     const data = await response.json();
+    return data;
+    /*
     if(data){
         let rows!: any[];
         Object.keys(data).map((level: any) => (
@@ -70,17 +110,18 @@ const getJson = async () =>{
             console.log(values.length);
         })
     }
+    */
   }
 
 // Our component
 const FxTable: React.SFC<Props> = props => {
   const { classes } = props;
-  
+
   getJson()
-  .then((rows: any) =>{
+  .then((rows: IDataType) =>{
       console.log(rows);
   })
-  
+
   return (
         <Paper className={classes.root}>
             <p>Example use of props: {props.hi}</p>
@@ -100,7 +141,7 @@ const FxTable: React.SFC<Props> = props => {
                 </TableBody>
             </Table>
             </Paper>
- 
+
   );
 
 
