@@ -77,18 +77,18 @@ interface ISource{
 interface ILevel1{
   _index: string;
   _type: string;
-  _id: number;
-  _score: number;
+  _id: string;
+  _score: string;
   _source: ISource;
 }
 interface ILevel2{
-  level2: Array<ILevel1>;
+  [key: string]: ILevel1[];
 }
 interface ILevel3{
- level3: Array<ILevel2>;
+ [key: string]: ILevel2[];
 }
 interface IDataType{
-  query: Array<ILevel3>;
+  query: ILevel3[];
 }
 const getJson = async (): Promise<IDataType> =>  {
     const response = await fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
@@ -120,10 +120,23 @@ const FxTable: React.SFC<Props> = props => {
   getJson()
     .then((data: IDataType) =>{
       (data.query).map(level3 => {
-          Object.keys(data.query[level3]).map( =>{
+          Object.keys(level3).map(level2 =>{
+            //console.log(level3[level2][_source]);
+            /* Не могу вытащить экземпляр, а из него _source*/
+            var item: ILevel2[] = level3[level2];
+              console.log(item);
 
+            // Вот здесь key:value показывается правильно, а получить отдельно не могу
+            //for (let key in level3[level2]) {
+            //  let value = level3[level2][key];
+            //  console.log(key+" : "+value);
+              // Use `key` and `value`
+            //}
+            console.log('====================');
+            //Object.keys(level3[level2]).map(level1 =>{
+            //  console.log(level1);
+            //})
           })
-          console.log(level3);
           return 0;
       })
     }
