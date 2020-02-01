@@ -80,11 +80,9 @@ interface ILevel2 extends Array<ILevel1>{};
 
 //interface ILevel3 extends Array<ILevel2>{};
 
-/*
-interface ILevel3{
- [key: number]: ILevel2;
-}
-*/
+
+//interface ILevel3{ [key: number]: ILevel2;}
+
 interface IDataType{
   query: Array<ILevel2>;
 }
