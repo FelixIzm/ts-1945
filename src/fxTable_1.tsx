@@ -74,74 +74,44 @@ interface ISource{
     authors: string;
 
 }
-interface ILevel1{
-  _index: string;
-  _type: string;
-  _id: string;
-  _score: string;
-  _source: ISource;
-}
-interface ILevel2{
-  [key: string]: ILevel1[];
-}
+interface ILevel1{_index: string; _type: string; _id: string; _score: string; _source: ISource;}
+
+interface ILevel2 extends Array<ILevel1>{};
+
+//interface ILevel3 extends Array<ILevel2>{};
+
+/*
 interface ILevel3{
- [key: string]: ILevel2[];
+ [key: number]: ILevel2;
 }
+*/
 interface IDataType{
-  query: ILevel3[];
+  query: Array<ILevel2>;
 }
 const getJson = async (): Promise<IDataType> =>  {
     const response = await fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
     const data = await response.json();
     return data;
-    /*
-    if(data){
-        let rows!: any[];
-        Object.keys(data).map((level: any) => (
-            data[level].map((level2: any) =>(
-            level2.map((key3: any) =>(
-                //<p>{key3['_source']['document_name']}</p>
-                rows.push(createData(key3['_source']['document_name']))
-            ))
-            ))
-        ));
-        Promise.all(rows)
-        .then(values => {
-            console.log(values.length);
-        })
-    }
-    */
   }
 
 // Our component
 const FxTable: React.SFC<Props> = props => {
   const { classes } = props;
-
-  getJson()
+//Здесть все работает - выводит данные
+const at = getJson()
     .then((data: IDataType) =>{
-      (data.query).map(level3 => {
-          Object.keys(level3).map(level2 =>{
-            //console.log(level3[level2][_source]);
-            /* Не могу вытащить экземпляр, а из него _source*/
-            var item: ILevel2[] = level3[level2];
-              console.log(item);
-
-            // Вот здесь key:value показывается правильно, а получить отдельно не могу
-            //for (let key in level3[level2]) {
-            //  let value = level3[level2][key];
-            //  console.log(key+" : "+value);
-              // Use `key` and `value`
-            //}
-            console.log('====================');
-            //Object.keys(level3[level2]).map(level1 =>{
-            //  console.log(level1);
-            //})
-          })
-          return 0;
-      })
-    }
-    )
-
+      var authors : string[] = [];
+      authors.push('Пушкин');
+            //console.log(data.query);
+      for (let items of data.query){
+        for (let item of items){
+            //console.log(item._source.authors);
+            authors.push(item._source.authors)
+        }
+      }
+      return authors; 
+    })
+  
   return (
         <Paper className={classes.root}>
             <p>Example use of props: {props.hi}</p>
@@ -149,15 +119,21 @@ const FxTable: React.SFC<Props> = props => {
                 <TableHead>
                 <TableRow>
                     <TableCell>Dessert (100g serving)</TableCell>
-                    <TableCell>Calories</TableCell>
-                    <TableCell>Fat (g)</TableCell>
-                    <TableCell>Carbs (g)</TableCell>
-                    <TableCell>Protein (g)</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {
-                }
+                    {
+                      at.then(authors => {
+                        authors.map(row => {
+                          return(
+                                <TableRow>
+                                <TableCell>{row}</TableCell>
+                                </TableRow>
+                              );
+                        })
+  
+                      })
+                    }
                 </TableBody>
             </Table>
             </Paper>
