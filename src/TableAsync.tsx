@@ -36,11 +36,18 @@ interface ILevel1{_index: string; _type: string; _id: string; _score: string; _s
 interface ILevel2 extends Array<ILevel1>{};
 interface IDataType{ query: Array<ILevel2>;}
 
-
-const loadUsers = () =>
+/*
+const loadUsers: IDataType = () => (
     fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
     .then(res => (res.ok ? res : Promise.reject(res)))
     .then(res => res.json())
+)
+*/
+const getJson = async (): Promise<IDataType> =>  {
+  const response = await fetch("https://fastify-1945.herokuapp.com/search/documents?unit=147&date_from=01.01.1945")
+  const data = await response.json();
+  return data;
+}
 
 // Our component
 function TableAsync() {
@@ -55,29 +62,20 @@ function TableAsync() {
 
         <TableBody>
 
-              <Async promiseFn={loadUsers}>
+              <Async promiseFn = {getJson}>
                 {({ data, error, isLoading }) => {
                   if (isLoading) return "Loading..."
                   if (error) return `Something went wrong: ${error.message}`
 
-                  if (data)
-                    console.log(data);
-                    return (
-                      <div>
-                        {
-                        
-                        Object.keys(data).map((level: any) => (
-                            data[level].map((level2: any) =>(
-                              level2.map((key3: any) =>(
-                                <TableRow><TableCell align="left">{key3['_source']['document_name']}</TableCell></TableRow>
-                              ))
-                            ))
-                        ))
-
-                        }
-                        
-                      </div>
-                    )
+                  if (data){
+                      data.query.forEach((element) => (
+                        element.forEach(item =>{
+                          return(
+                          <TableRow><TableCell align="left">{item._id}</TableCell></TableRow>
+                          )
+                        })
+                      ))
+                  }
                 }}
               </Async>
       </TableBody>
