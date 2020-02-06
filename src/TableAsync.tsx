@@ -67,13 +67,13 @@ function TableAsync() {
                   if (isLoading) return "Loading..."
                   if (error) return `Something went wrong: ${error.message}`
                   if (data){
-                      data.query.forEach((element) => (
-                        element.forEach(item =>{
-                          return(
-                          <TableRow><TableCell align="left">{item._id}</TableCell></TableRow>
-                          )
-                        })
-                      ))
+                    return(
+                            data.query.forEach((element) => (
+                              element.forEach(item =>(
+                                <TableRow  key={item._index}><TableCell align="left">{item._id}</TableCell></TableRow>
+                              ))
+                            ))
+                    )  
                   }
                 }}
               </Async>
