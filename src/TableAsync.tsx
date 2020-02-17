@@ -9,6 +9,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom'
+
 
 interface ISource{
   document_number: number;
@@ -56,7 +58,16 @@ function TableAsync() {
       <Table  size="small" aria-label="a dense table">
       <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
+          <TableCell>Тип документа</TableCell>
+          <TableCell>Содержание</TableCell>
+          <TableCell>Период</TableCell>
+          <TableCell>Авторы</TableCell>
+          <TableCell>Дата документа</TableCell>
+          <TableCell>Архив</TableCell>
+          <TableCell>Фонд</TableCell>
+          <TableCell>Опись</TableCell>
+          <TableCell>Дело</TableCell>
+          <TableCell>Док</TableCell>
           </TableRow>
         </TableHead>
 
@@ -70,7 +81,17 @@ function TableAsync() {
                     return(
                             data.query.map((element) => (
                               element.map(item =>(
-                                <TableRow  key={item._index}><TableCell align="left">{item._source.document_type}</TableCell></TableRow>
+                                <TableRow  key={item._index}>
+                                <TableCell align="left">{item._source.document_type}</TableCell>
+                                <TableCell align="left">{item._source.document_name}</TableCell>
+                                <TableCell align="left">{item._source.date_from+' '+item._source.date_to}</TableCell>
+                                <TableCell align="left">{item._source.authors}</TableCell>
+                                <TableCell align="left">{item._source.document_date_f}</TableCell>
+                                <TableCell align="left">{item._source.archive}</TableCell>
+                                <TableCell align="left">{item._source.fond}</TableCell>
+                                <TableCell align="left">{item._source.opis}</TableCell>
+                                <TableCell align="left">{item._source.delo}</TableCell>
+                                </TableRow>
                               ))
                             ))
                     )  
