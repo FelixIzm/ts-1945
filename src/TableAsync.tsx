@@ -68,9 +68,9 @@ function TableAsync() {
                   if (error) return `Something went wrong: ${error.message}`
                   if (data){
                     return(
-                            data.query.forEach((element) => (
-                              element.forEach(item =>(
-                                <TableRow  key={item._index}><TableCell align="left">{item._id}</TableCell></TableRow>
+                            data.query.map((element) => (
+                              element.map(item =>(
+                                <TableRow  key={item._index}><TableCell align="left">{item._source.document_type}</TableCell></TableRow>
                               ))
                             ))
                     )  
