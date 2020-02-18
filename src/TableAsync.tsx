@@ -9,7 +9,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 
 interface ISource{
@@ -91,6 +92,12 @@ function TableAsync() {
                                 <TableCell align="left">{item._source.fond}</TableCell>
                                 <TableCell align="left">{item._source.opis}</TableCell>
                                 <TableCell align="left">{item._source.delo}</TableCell>
+                                <TableCell>
+                                <Link href={"https://pamyat-naroda.ru/documents/view/?id="+item._id} color="primary" target="_blank" rel="noopener">
+                                  Link
+                                </Link>
+                            
+                                </TableCell>
                                 </TableRow>
                               ))
                             ))
